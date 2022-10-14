@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 21:08:07 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/14 18:46:09 by alfux            ###   ########.fr       */
+/*   Created: 2022/10/14 14:40:47 by alfux             #+#    #+#             */
+/*   Updated: 2022/10/14 20:23:45 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "Contact.hpp"
+#include "PhoneBook.hpp"
 
-int	main(void)
+PhoneBook::PhoneBook() {}
+
+int	PhoneBook::add()
 {
-	Contact	contact;
+	size_t	i;
 
-	contact.fill();
-	contact.show();
-	return (0);
+	i = 0;
+	while (i < MAX_CONTACT)
+	{
+		if (
+	}
 }
+
+PhoneBook::~PhoneBook() {}

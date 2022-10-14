@@ -6,21 +6,21 @@
 #    By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 20:50:07 by alfux             #+#    #+#              #
-#    Updated: 2022/10/11 16:54:42 by alfux            ###   ########.fr        #
+#    Updated: 2022/10/14 17:54:32 by alfux            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		=	main.cpp
+SRC		=	main.cpp Contact.cpp
 
 OBJ		=	$(SRC:%.cpp=%.o)
 
-HDR		=
+HDR		=	
 
 OPTIONS	=	-Wall -Werror -Wextra -std=c++98
 
 CC		=	c++
 
-NAME	=	My_awesome_phonebook
+NAME	=	awesome_phonebook
 
 GREEN	=	\033[32m
 
@@ -34,7 +34,7 @@ $(NAME)	:	$(OBJ)
 			@($(CC) $(OPTIONS) $(OBJ) -o $@)
 			@(echo "$(GREEN)$@ linked$(WHITE)")
 
-%.o		:	%.cpp $(HDR)
+%.o		:	%.cpp %.hpp
 			@($(CC) $(OPTIONS) -c $< -o $@)
 			@(echo "$(GREY)$@ comipled$(WHITE)")
 

@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Contact.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/10 21:08:07 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/14 18:46:09 by alfux            ###   ########.fr       */
+/*   Created: 2022/10/14 16:24:26 by alfux             #+#    #+#             */
+/*   Updated: 2022/10/14 20:11:18 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "Contact.hpp"
+#ifndef CONTACT_HPP
+# define CONTACT_HPP
+# include <iostream>
+# include <ctype.h>
 
-int	main(void)
+class	Contact
 {
-	Contact	contact;
+	std::string	frst;
+	std::string	last;
+	std::string	nick;
+	std::string	dark;
 
-	contact.fill();
-	contact.show();
-	return (0);
-}
+	int	isempty(std::string &str);
+	public :
+				Contact();
+		void	fill();
+		void	show();
+				~Contact();
+};
+
+#endif
