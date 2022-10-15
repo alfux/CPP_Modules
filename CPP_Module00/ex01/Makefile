@@ -6,11 +6,11 @@
 #    By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 20:50:07 by alfux             #+#    #+#              #
-#    Updated: 2022/10/14 17:54:32 by alfux            ###   ########.fr        #
+#    Updated: 2022/10/15 06:38:49 by alfux            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		=	main.cpp Contact.cpp
+SRC		=	main.cpp Contact.cpp PhoneBook.cpp
 
 OBJ		=	$(SRC:%.cpp=%.o)
 
