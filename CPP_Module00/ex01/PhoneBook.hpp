@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 14:40:43 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/15 06:41:39 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/17 06:45:04 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PHONEBOOK_HPP
@@ -19,8 +19,10 @@
 
 class	PhoneBook
 {
-	private :
-		Contact	contacts[MAX_CONTACT];
+	Contact	contacts[MAX_CONTACT];
+	int		n;
+
+	int	no_contact(void);
 
 	public :
 			PhoneBook(void);

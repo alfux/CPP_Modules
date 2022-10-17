@@ -6,7 +6,7 @@
 #    By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 20:50:07 by alfux             #+#    #+#              #
-#    Updated: 2022/10/15 06:38:49 by alfux            ###   ########.fr        #
+#    Updated: 2022/10/17 06:58:09 by alfux            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,13 @@ SRC		=	main.cpp Contact.cpp PhoneBook.cpp
 
 OBJ		=	$(SRC:%.cpp=%.o)
 
-HDR		=	
+HDR		=	Contact.hpp PhoneBook.hpp
 
 OPTIONS	=	-Wall -Werror -Wextra -std=c++98
 
 CC		=	c++
 
-NAME	=	awesome_phonebook
+NAME	=	phonebook
 
 GREEN	=	\033[32m
 
@@ -34,7 +34,7 @@ $(NAME)	:	$(OBJ)
 			@($(CC) $(OPTIONS) $(OBJ) -o $@)
 			@(echo "$(GREEN)$@ linked$(WHITE)")
 
-%.o		:	%.cpp %.hpp
+%.o		:	%.cpp $(HDR)
 			@($(CC) $(OPTIONS) -c $< -o $@)
 			@(echo "$(GREY)$@ comipled$(WHITE)")
 
