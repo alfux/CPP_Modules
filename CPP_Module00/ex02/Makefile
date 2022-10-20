@@ -6,21 +6,21 @@
 #    By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 20:50:07 by alfux             #+#    #+#              #
-#    Updated: 2022/10/11 15:58:18 by alfux            ###   ########.fr        #
+#    Updated: 2022/10/20 19:53:45 by alfux            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		=	main.cpp
+SRC		=	tests.cpp Account.cpp
 
 OBJ		=	$(SRC:%.cpp=%.o)
 
-HDR		=
+HDR		=	Account.hpp
 
 OPTIONS	=	-Wall -Werror -Wextra -std=c++98
 
 CC		=	c++
 
-NAME	=	cpp00
+NAME	=	account
 
 GREEN	=	\033[32m
 
