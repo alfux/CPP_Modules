@@ -6,11 +6,13 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 16:32:39 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/21 03:51:46 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/21 18:25:21 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Account.hpp"
 #include <iostream>
+#include <iomanip>
+#include <ctime>
 
 int	Account::_nbAccounts = 0;
 int	Account::_totalAmount = 0;
@@ -79,7 +81,8 @@ void	Account::displayStatus(void) const
 bool	Account::makeWithdrawal(int withdrawal)
 {
 	Account::_displayTimestamp();
-	std::cout << "index:" << _accountIndex << ";p_amount:" << _amount << ";withdrawal:";
+	std::cout << "index:" << _accountIndex << ";p_amount:" << _amount
+		<< ";withdrawal:";
 	if (withdrawal > _amount)
 	{
 		std::cout << "refused\n";
@@ -96,11 +99,19 @@ bool	Account::makeWithdrawal(int withdrawal)
 
 void	Account::_displayTimestamp(void)
 {
-	std::cout << "[19920104_091532] ";
+	time_t		t;
+	struct tm	*loc;
+
+	t = time((time_t *)0);
+	loc = localtime(&t);
+	std::cout << '[' << std::setw(2) << std::setfill('0')
+		<< loc->tm_year + 1900 << loc->tm_mon + 1 << loc->tm_mday << '_'
+		<< loc->tm_hour << loc->tm_min << loc->tm_sec << "] ";
 }
 
 Account::~Account()
 {
 	Account::_displayTimestamp();
-	std::cout << "index:" << _accountIndex << ";amount:" << _amount << ";closed\n";
+	std::cout << "index:" << _accountIndex << ";amount:" << _amount
+		<< ";closed\n";
 }
