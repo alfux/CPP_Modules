@@ -6,7 +6,7 @@
 #    By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 20:50:07 by alfux             #+#    #+#              #
-#    Updated: 2022/10/11 15:56:38 by alfux            ###   ########.fr        #
+#    Updated: 2022/10/21 21:06:39 by alfux            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ clean	:
 
 fclean	:	clean
 			@(rm -rf $(NAME))
-			@(echo "$(RED)$@ erased$(WHITE)")
+			@(echo "$(RED)$(NAME) erased$(WHITE)")
 
 re		:	fclean all
 
