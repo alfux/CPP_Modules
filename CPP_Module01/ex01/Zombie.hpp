@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 21:06:49 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/24 17:57:59 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/24 22:59:54 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef ZOMBIE_HPP
@@ -27,7 +27,7 @@ class	Zombie
 		void	announce(void);
 		~Zombie(void);
 
-		void	operator=(std::string name);
+		Zombie	&operator=(std::string name);
 };
 
 Zombie	*zombieHorde(int N, std::string name);

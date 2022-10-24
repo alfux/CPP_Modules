@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 20:30:40 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/24 17:58:18 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/24 23:00:57 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Zombie.hpp"
@@ -33,9 +33,10 @@ void	Zombie::announce(void)
 	std::cout << name << ": BraiiiiiiinnnzzzZ..." << std::endl;
 }
 
-void	Zombie::operator=(std::string newname)
+Zombie	&Zombie::operator=(std::string newname)
 {
 	name = newname;
+	return (*this);
 }
 
 Zombie::~Zombie(void)
