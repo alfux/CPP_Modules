@@ -10,3 +10,4 @@ Monday October 24th 03:00: adding CPP_Module01/ex00
 <br />Monday October 24th 23:37: adding CPP_Module01/ex02
 <br />Tuesday October 25th 02:28: adding CPP_Module01/ex03
 <br />Tuesday October 25th 18:10: adding CPP_Module01/ex04
+<br />Wednesday October 26th 02:58: adding CPP_Module01/ex05
