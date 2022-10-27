@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 06:40:07 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/27 04:03:27 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/27 22:40:18 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FIXED_HPP
@@ -17,21 +17,21 @@ class	Fixed
 {
 	private :
 		static int const	frac;
-		int					bits;
+		unsigned int		bits;
 
 	public :
 		Fixed(void);
 		Fixed(Fixed const &copy);
 		Fixed(int const n);
-		Fixed(float const flo);
+		Fixed(float const x);
 		~Fixed(void);
 
 		int		getRawBits(void) const;
 		void	setRawBits(int const raw);
-		float	toFloat(void) const;
 		int		toInt(void) const;
+		float	toFloat(void) const;
 
-		Fixed	&operator=(Fixed const &assign);
+		Fixed	&operator=(Fixed const &rhs);
 };
 
 std::ostream	&operator<<(std::ostream &flux, Fixed const &n);

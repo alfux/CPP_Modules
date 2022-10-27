@@ -6,12 +6,30 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 06:40:14 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/27 04:02:42 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/27 22:38:54 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Fixed.hpp"
+static char	printBits(unsigned int const bit)
+{
+	for (int i = 31; i >= 0; i--)
+	{
+		std::cout << ((bit >> i) & 1);
+		if (i == 31 || i == 23)
+			std::cout << ' ';
+	}
+	return ('\n');
+}
+
 
 int const	Fixed::frac = 8;
+
+static void	twos_complement(unsigned int &bit)
+{
+	for (int b = 0; b < 32; b++)
+		bit += (bit & (1 << b)) ? (-1) * (1 << b) : 1 << b;
+	bit += 1;
+}
 
 Fixed::Fixed(void) : bits(0)
 {
@@ -27,36 +45,36 @@ Fixed::Fixed(Fixed const &copy)
 Fixed::Fixed(int const n)
 {
 	std::cout << "Int constructor called" << std::endl;
-	bits = n << Fixed::frac;
-	if (n < 0)
-		bits *= -1;
+	if (n > (1 << 23) - 1 || n < (-1) * (1 << 23))
+		std::cerr << "warning: number " << n << " is out of range"
+			<< " (undefined behavior)" << std::endl;
+	this->bits = (*(unsigned int *)(&n)) << Fixed::frac;
+	std::cout << "Bits: " << printBits(this->bits);
 }
 
-Fixed::Fixed(float const flo)
+Fixed::Fixed(float const x)
 {
-	int	expo;
-	int	mant;
-	int	i;
-	int	j;
-	int	x;
+	unsigned int	b;
+	unsigned int	mant;
+	unsigned char	expo;
 
 	std::cout << "Float constructor called" << std::endl;
-	x = *((int *)&flo);
-	expo = 255 & ((int)x >> 23);
-	mant = (int)x & ((1 << 23) - 1);
-	this->bits = 0;
-	if (!expo && !mant)
-		return ;
-	if (expo > 126)
-		this->bits += (1 << (expo - 127));
-	for (i = 1; (expo - i) > 126; i++)
-		this->bits += ((mant >> (23 - i)) & 1) * (1 << (expo - 127 - i));
-	this->bits = this->bits << Fixed::frac;
-	j = 0;
-	while (i < 24 && j < Fixed::frac)
-		this->bits += ((mant >> (23 - i++)) & 1)
-			* (1 << (Fixed::frac - j++ - 1));
-	this->bits = this->bits | 1;
+	if (x > (1 << 23) - 1 || x < (-1) * (1 << 23))
+		std::cerr << "warning: number " << x << " is out of range"
+			<< " (undefined behavior)" << std::endl;
+	b = *(unsigned int *)(&x);
+	mant = ((1 << 23) - 1) & b;
+	expo = (((1 << 8) - 1) & (b >> 23));
+	this->bits = mant | (1 << 23);
+	if (!mant && !expo)
+		this->bits = 0;
+	if ((expo - 127) > 15)
+		this->bits = this->bits << ((expo - 127) - 15);
+	else
+		this->bits = this->bits >> (15 - (expo - 127));
+	if (x < 0)
+		twos_complement(this->bits);
+	std::cout << "Bits: " << printBits(this->bits);
 }
 
 Fixed::~Fixed(void)
@@ -74,26 +92,43 @@ void	Fixed::setRawBits(int const raw)
 	this->bits = raw;
 }
 
-float	Fixed::toFloat(void) const
-{
-	char	msb;
-	int		flo;
-	int		i;
-
-	if (!this->bits)
-		return ((float)0);
-	for (msb = 30; !((this->bits >> msb) & 1); msb--);
-	flo = (119 + msb) << 23;
-	i = 0;
-	while (--msb >= 0)
-		flo = flo | (((this->bits >> msb) & 1) << (22 - i++));
-	flo = flo | (this->bits & (1 << 31));
-	return (*((float *)(&flo)));
-}
-
 int	Fixed::toInt(void) const
 {
-	return (this->bits >> Fixed::frac);
+	unsigned int	ret;
+
+	if (!this->bits)
+		return (0);
+	ret = this->bits;
+	if ((this->bits & (1 << 31)))
+	{
+		twos_complement(ret);
+		ret = ret >> Fixed::frac;
+		twos_complement(ret);
+	}
+	else
+		ret = ret >> Fixed::frac;
+	return ((*(int *)(&ret)));
+}
+
+float	Fixed::toFloat(void) const
+{
+	unsigned int	ret;
+	unsigned char	msb;
+
+	if (!this->bits)
+		return (0.f);
+	ret = this->bits;
+	if ((this->bits & (1 << 31)))
+		twos_complement(ret);
+	for (msb = 30; msb > 0 && !(ret & (1 << msb)); msb--);
+	if (msb > 23)
+		ret = ret >> (msb - 23);
+	else
+		ret = ret << (23 - msb);
+	ret = (ret - (1 << 23)) | ((msb + 119) << 23);
+	if ((this->bits & (1 << 31)))
+		ret += (1 << 31);
+	return (*(float *)(&ret));
 }
 
 Fixed	&Fixed::operator=(Fixed const &assign)
@@ -105,7 +140,7 @@ Fixed	&Fixed::operator=(Fixed const &assign)
 
 std::ostream	&operator<<(std::ostream &flux, Fixed const &n)
 {
-	if (n.getRawBits() << 24 != 0)
-		return (flux << n.toFloat());
-	return (flux << n.toInt());
+	if (n.getRawBits() << 24 == 0)
+		return (flux << n.toInt());
+	return (flux << n.toFloat());
 }

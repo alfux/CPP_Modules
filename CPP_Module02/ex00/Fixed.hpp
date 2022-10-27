@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 06:40:07 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/27 04:12:41 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/27 17:42:55 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef FIXED_HPP
@@ -17,7 +17,7 @@ class	Fixed
 {
 	private :
 		static int const	frac;
-		int					bits;
+		unsigned int		bits;
 
 	public :
 		Fixed(void);
@@ -27,7 +27,7 @@ class	Fixed
 		int		getRawBits(void) const;
 		void	setRawBits(int const raw);
 
-		Fixed	&operator=(Fixed const &assign);
+		Fixed	&operator=(Fixed const &rhs);
 };
 
 #endif

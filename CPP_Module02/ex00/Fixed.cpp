@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 06:40:14 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/27 04:12:12 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/27 17:52:46 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Fixed.hpp"
@@ -21,14 +21,12 @@ Fixed::Fixed(void) : bits(0)
 Fixed::Fixed(Fixed const &copy)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	this->bits = copy.getRawBits();
+	*this = copy;
 }
 
-Fixed	&Fixed::operator=(Fixed const &assign)
+Fixed::~Fixed(void)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
-	this->bits = assign.getRawBits();
-	return (*this);
+	std::cout << "Destructor called" << std::endl;
 }
 
 int	Fixed::getRawBits(void) const
@@ -42,7 +40,9 @@ void	Fixed::setRawBits(int const raw)
 	this->bits = raw;
 }
 
-Fixed::~Fixed(void)
+Fixed	&Fixed::operator=(Fixed const &assign)
 {
-	std::cout << "Destructor called" << std::endl;
+	std::cout << "Copy assignment operator called" << std::endl;
+	this->bits = assign.getRawBits();
+	return (*this);
 }
