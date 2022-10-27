@@ -6,21 +6,10 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 06:40:14 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/27 22:38:54 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/27 22:46:17 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Fixed.hpp"
-static char	printBits(unsigned int const bit)
-{
-	for (int i = 31; i >= 0; i--)
-	{
-		std::cout << ((bit >> i) & 1);
-		if (i == 31 || i == 23)
-			std::cout << ' ';
-	}
-	return ('\n');
-}
-
 
 int const	Fixed::frac = 8;
 
@@ -49,7 +38,6 @@ Fixed::Fixed(int const n)
 		std::cerr << "warning: number " << n << " is out of range"
 			<< " (undefined behavior)" << std::endl;
 	this->bits = (*(unsigned int *)(&n)) << Fixed::frac;
-	std::cout << "Bits: " << printBits(this->bits);
 }
 
 Fixed::Fixed(float const x)
@@ -74,7 +62,6 @@ Fixed::Fixed(float const x)
 		this->bits = this->bits >> (15 - (expo - 127));
 	if (x < 0)
 		twos_complement(this->bits);
-	std::cout << "Bits: " << printBits(this->bits);
 }
 
 Fixed::~Fixed(void)
