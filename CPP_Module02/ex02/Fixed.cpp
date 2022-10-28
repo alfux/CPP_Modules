@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 06:40:14 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/28 05:56:10 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/28 05:38:23 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Fixed.hpp"
@@ -20,20 +20,15 @@ static void	twos_complement(unsigned int &bit)
 	bit += 1;
 }
 
-Fixed::Fixed(void) : bits(0)
-{
-	std::cout << "Default constructor called" << std::endl;
-}
+Fixed::Fixed(void) : bits(0) {}
 
 Fixed::Fixed(Fixed const &copy)
 {
-	std::cout << "Copy constructor called" << std::endl;
 	*this = copy;
 }
 
 Fixed::Fixed(int const n)
 {
-	std::cout << "Int constructor called" << std::endl;
 	if (n > (1 << 23) - 1 || n < (-1) * (1 << 23))
 		std::cerr << "warning: number " << n << " is out of range"
 			<< " (undefined behavior)" << std::endl;
@@ -46,7 +41,6 @@ Fixed::Fixed(float const x)
 	unsigned int	mant;
 	unsigned char	expo;
 
-	std::cout << "Float constructor called" << std::endl;
 	if (x > (1 << 23) - 1 || x < (-1) * (1 << 23))
 		std::cerr << "warning: number " << x << " is out of range"
 			<< " (undefined behavior)" << std::endl;
@@ -68,10 +62,7 @@ Fixed::Fixed(float const x)
 		twos_complement(this->bits);
 }
 
-Fixed::~Fixed(void)
-{
-	std::cout << "Destructor called" << std::endl;
-}
+Fixed::~Fixed(void) {}
 
 int	Fixed::getRawBits(void) const
 {
@@ -126,9 +117,167 @@ float	Fixed::toFloat(void) const
 
 Fixed	&Fixed::operator=(Fixed const &assign)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
 	this->bits = assign.getRawBits();
 	return (*this);
+}
+
+Fixed	&Fixed::operator++(void)
+{
+	this->bits++;
+	return (*this);
+}
+
+Fixed	&Fixed::operator--(void)
+{
+	this->bits--;
+	return (*this);
+}
+
+Fixed	Fixed::operator++(int null)
+{
+	(void)null;
+	++(*this);
+	return (--Fixed(*this));
+}
+
+Fixed	Fixed::operator--(int null)
+{
+	(void)null;
+	--(*this);
+	return (++Fixed(*this));
+}
+
+Fixed	Fixed::operator+(Fixed const &rhs) const
+{
+	Fixed	ret;
+
+	ret.setRawBits(this->bits + rhs.bits);
+	return (ret);
+}
+
+Fixed	Fixed::operator-(Fixed const &rhs) const
+{
+	Fixed	ret;
+
+	ret.setRawBits(this->bits - rhs.bits);
+	return (ret);
+}
+
+Fixed	Fixed::operator*(Fixed const &rhs) const
+{
+	unsigned int	a;
+	unsigned int	b;
+	Fixed			ret;
+	int				i;
+
+	a = *(unsigned int *)(&this->bits);
+	b = *(unsigned int *)(&rhs.bits);
+	if (((a >> 31) & 1) == 1)
+		twos_complement(a);
+	if (((b >> 31) & 1) == 1)
+		twos_complement(b);
+	for (i = 0; i < Fixed::frac; i++)
+		ret.bits += (((b >> i) & 1) * a) >> (Fixed::frac - i);
+	for (i = Fixed::frac; i < 32; i++)
+		ret.bits += (((b >> i) & 1) * a) << (i - Fixed::frac);
+	if (((this->bits >> 31) & 1) != ((rhs.bits >> 31) & 1))
+		twos_complement(ret.bits);
+	return (ret);
+}
+
+Fixed	Fixed::operator/(Fixed const &rhs) const
+{
+	return (Fixed(this->toFloat() / rhs.toFloat()));
+}
+
+int	Fixed::operator>(Fixed const &rhs) const
+{
+	int	a;
+	int	b;
+
+	a = *(int *)(&this->bits);
+	b = *(int *)(&rhs.bits);
+	if (a > b)
+		return (1);
+	return (0);
+}
+
+int	Fixed::operator>=(Fixed const &rhs) const
+{
+	int	a;
+	int	b;
+
+	a = *(int *)(&this->bits);
+	b = *(int *)(&rhs.bits);
+	if (a >= b)
+		return (1);
+	return (0);
+}
+
+int	Fixed::operator<(Fixed const &rhs) const
+{
+	int	a;
+	int	b;
+
+	a = *(int *)(&this->bits);
+	b = *(int *)(&rhs.bits);
+	if (a < b)
+		return (1);
+	return (0);
+}
+
+int	Fixed::operator<=(Fixed const &rhs) const
+{
+	int	a;
+	int	b;
+
+	a = *(int *)(&this->bits);
+	b = *(int *)(&rhs.bits);
+	if (a <= b)
+		return (1);
+	return (0);
+}
+
+int	Fixed::operator==(Fixed const &rhs) const
+{
+	if (this->bits == rhs.bits)
+		return (1);
+	return (0);
+}
+
+int	Fixed::operator!=(Fixed const &rhs) const
+{
+	if (this->bits != rhs.bits)
+		return (1);
+	return (0);
+}
+
+Fixed	&Fixed::min(Fixed &a, Fixed &b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
+
+Fixed	Fixed::min(Fixed const &a, Fixed const &b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
+
+Fixed	&Fixed::max(Fixed &a, Fixed &b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
+
+Fixed	Fixed::max(Fixed const &a, Fixed const &b)
+{
+	if (a > b)
+		return (a);
+	return (b);
 }
 
 std::ostream	&operator<<(std::ostream &flux, Fixed const &n)
