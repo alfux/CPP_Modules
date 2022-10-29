@@ -6,19 +6,12 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 06:40:14 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/28 05:56:10 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/29 07:42:53 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Fixed.hpp"
 
 int const	Fixed::frac = 8;
-
-static void	twos_complement(unsigned int &bit)
-{
-	for (int b = 0; b < 32; b++)
-		bit += (bit & (1 << b)) ? (-1) * (1 << b) : 1 << b;
-	bit += 1;
-}
 
 Fixed::Fixed(void) : bits(0)
 {
@@ -38,6 +31,13 @@ Fixed::Fixed(int const n)
 		std::cerr << "warning: number " << n << " is out of range"
 			<< " (undefined behavior)" << std::endl;
 	this->bits = (*(unsigned int *)(&n)) << Fixed::frac;
+}
+
+static void	twos_complement(unsigned int &bit)
+{
+	for (int b = 0; b < 32; b++)
+		bit += (bit & (1 << b)) ? (-1) * (1 << b) : 1 << b;
+	bit += 1;
 }
 
 Fixed::Fixed(float const x)
