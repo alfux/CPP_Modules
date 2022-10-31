@@ -6,13 +6,13 @@
 #    By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/31 02:57:32 by alfux             #+#    #+#              #
-#    Updated: 2022/10/31 04:12:44 by alfux            ###   ########.fr        #
+#    Updated: 2022/10/31 05:23:53 by alfux            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-HDR		=	Animal.hpp Dog.hpp Cat.hpp
+HDR		=	Animal.hpp Dog.hpp Cat.hpp WrongAnimal.hpp WrongCat.hpp
 
-SRC		=	Animal.cpp Dog.cpp Cat.cpp main.cpp
+SRC		=	Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp main.cpp
 
 OBJ		=	$(SRC:%.cpp=%.o)
 
