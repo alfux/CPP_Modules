@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 00:57:56 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/30 04:00:00 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/30 18:21:59 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CLAPTRAP_HPP
@@ -31,9 +31,9 @@ class	ClapTrap
 
 		ClapTrap	&operator=(ClapTrap const &cpy);
 
-		void	attack(std::string const &target);
-		void	takeDamage(unsigned int amount);
-		void	beRepaired(unsigned int amount);
+		virtual void	attack(std::string const &target);
+		void			takeDamage(unsigned int amount);
+		void			beRepaired(unsigned int amount);
 };
 
 #endif
