@@ -6,12 +6,12 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 04:01:08 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/31 04:12:50 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/31 06:17:11 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef CAT_HPP
 # define CAT_HPP
-#include "Animal.hpp"
+# include "Animal.hpp"
 
 class	Cat : public Animal
 {

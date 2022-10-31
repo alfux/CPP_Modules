@@ -6,12 +6,12 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 03:04:01 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/31 05:13:26 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/31 06:17:36 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef WRONGANIMAL_HPP
 # define WRONGANIMAL_HPP
-#include <iostream>
+# include <iostream>
 
 class	WrongAnimal
 {

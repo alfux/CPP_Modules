@@ -6,12 +6,12 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 03:04:01 by alfux             #+#    #+#             */
-/*   Updated: 2022/10/31 04:29:51 by alfux            ###   ########.fr       */
+/*   Updated: 2022/10/31 06:17:44 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef ANIMAL_HPP
 # define ANIMAL_HPP
-#include <iostream>
+# include <iostream>
 
 class	Animal
 {
