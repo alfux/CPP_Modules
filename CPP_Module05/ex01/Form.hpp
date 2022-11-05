@@ -1,46 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/04 02:06:45 by alfux             #+#    #+#             */
-/*   Updated: 2022/11/04 18:49:53 by alfux            ###   ########.fr       */
+/*   Created: 2022/11/04 17:05:38 by alfux             #+#    #+#             */
+/*   Updated: 2022/11/05 13:56:33 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef BUREAUCRAT_HPP
-# define BUREAUCRAT_HPP
-# include <iostream>
-# include <exception>
+#ifndef FORM_HPP
+# define FORM_HPP
+# include "Bureaucrat.hpp"
 
-class	Bureaucrat
+class	Bureaucrat;
+
+class	Form
 {
 	private :
 		struct	GradeTooHighException : std::exception
 			{char const	*what(void) const throw();};
 		struct	GradeTooLowException : std::exception
-			{char const *what(void) const throw();};
+			{char const	*what(void) const throw();};
 
 		std::string const	name;
-		int					grade;
+		bool				status;
+		int const			gsign;
+		int const			gexec;
 
 	public :
-		Bureaucrat(void);
-		Bureaucrat(std::string const &name);
-		Bureaucrat(Bureaucrat const &cpy);
-		Bureaucrat(int const &grade);
-		Bureaucrat(std::string const &name, int const &grade);
-		virtual	~Bureaucrat(void);
+		Form(void);
+		Form(std::string const &);
+		Form(Form const &);
+		Form(std::string const &, int const &, int const &);
+		Form(int const &, int const &);
+		virtual	~Form(void);
 
-		Bureaucrat	&operator=(Bureaucrat const &cpy);
-		Bureaucrat	&operator+=(int const &inc);
-		Bureaucrat	&operator-=(int const &dec);
+		Form	&operator=(Form const &);
 
 		std::string const	&getName(void) const;
-		int const			&getGrade(void) const;
+		bool const			&getStatus(void) const;
+		int const			&getGradeToSign(void) const;
+		int const			&getGradeToExec(void) const;
+		void				beSigned(Bureaucrat const &);
 };
 
-std::ostream	&operator<<(std::ostream &flux, Bureaucrat const &obj);
+std::ostream	&operator<<(std::ostream &, Form const &);
 
 #endif

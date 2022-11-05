@@ -6,13 +6,16 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 02:06:45 by alfux             #+#    #+#             */
-/*   Updated: 2022/11/04 18:49:53 by alfux            ###   ########.fr       */
+/*   Updated: 2022/11/05 14:19:14 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef BUREAUCRAT_HPP
 # define BUREAUCRAT_HPP
 # include <iostream>
 # include <exception>
+# include "Form.hpp"
+
+class	Form;
 
 class	Bureaucrat
 {
@@ -20,7 +23,7 @@ class	Bureaucrat
 		struct	GradeTooHighException : std::exception
 			{char const	*what(void) const throw();};
 		struct	GradeTooLowException : std::exception
-			{char const *what(void) const throw();};
+			{char const	*what(void) const throw();};
 
 		std::string const	name;
 		int					grade;
@@ -39,8 +42,9 @@ class	Bureaucrat
 
 		std::string const	&getName(void) const;
 		int const			&getGrade(void) const;
+		void				signForm(Form &);
 };
 
 std::ostream	&operator<<(std::ostream &flux, Bureaucrat const &obj);
 
-#endif
+#endif	
