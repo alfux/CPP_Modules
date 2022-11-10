@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 13:22:30 by alfux             #+#    #+#             */
-/*   Updated: 2022/11/09 17:22:13 by alfux            ###   ########.fr       */
+/*   Updated: 2022/11/10 01:48:43 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "Convert.hpp"
@@ -105,14 +105,15 @@ Convert	&Convert::operator=(std::string const &lit)
 void	Convert::findType(void)
 {
 	size_t	size;
-	size_t	i;
 	bool	first;
 
 	first = true;
 	size = this->literal.size();
-	if (size == 1 && (this->literal[0] < '0' || this->literal[0] > '9'))
+	if ((size == 1 && (this->literal[0] < '0' || this->literal[0] > '9'))
+		|| (size == 3 && this->literal[0] == '\'' && this->literal[2] == '\'')
+		|| (size == 3 && this->literal[0] == '\"' && this->literal[2] == '\"'))
 		return ((void)(this->type = "char"));
-	for (i = 0; i < size; i++)
+	for (size_t i = 0; i < size; i++)
 	{
 		if (this->literal[i] < '0' || this->literal[i] > '9')
 		{
@@ -133,7 +134,7 @@ void	Convert::findType(void)
 void	Convert::assignType(void)
 {
 	if (!this->type.compare("char"))
-		char_val = this->literal[0];
+		char_val = this->literal[(this->literal.size() == 3)];
 	else
 	{
 		try
