@@ -6,11 +6,11 @@
 #    By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/11 03:00:39 by alfux             #+#    #+#              #
-#    Updated: 2022/11/11 16:57:41 by alfux            ###   ########.fr        #
+#    Updated: 2022/11/11 16:57:06 by alfux            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-HDR		=	whatever.hpp
+HDR		=	iter.hpp
 
 SRC		=	main.cpp
 
@@ -20,7 +20,7 @@ OPT		=	-Wall -Wextra -Werror -Wshadow -std=c++98 -g
 
 CC		=	c++
 
-NAME	=	whatever
+NAME	=	iter
 
 $(NAME)	:	$(OBJ)
 			@($(CC) $(OPT) $(OBJ) -o $@)
