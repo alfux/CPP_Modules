@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:09:22 by alfux             #+#    #+#             */
-/*   Updated: 2022/11/15 23:54:19 by alfux            ###   ########.fr       */
+/*   Updated: 2022/11/16 00:34:31 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MUTANTSTACK_HPP
@@ -17,11 +17,13 @@
 
 template <typename t_vtype> class	MutantStack : public std::stack<t_vtype>
 {
-	typedef std::iterator<std::bidirectional_iterator_tag, t_vtype> t_bidir;
-
 	private :
+		typedef std::iterator<std::bidirectional_iterator_tag, t_vtype> t_bidir;
+
 		struct	BadDereferencing : std::exception
-			{char const	*what(void) const throw();};
+		{
+			char const	*what(void) const throw();
+		};
 		class	PrivIterator : public t_bidir
 		{
 			protected :
@@ -49,11 +51,6 @@ template <typename t_vtype> class	MutantStack : public std::stack<t_vtype>
 				bool					operator>(PrivIterator const &) const;
 		};
 
-		std::stack<t_vtype>	memory;
-
-		void	swapToMem(void);
-		void	swapFromMem(void);
-
 	public :
 		class	iterator : public PrivIterator
 		{
@@ -65,6 +62,13 @@ template <typename t_vtype> class	MutantStack : public std::stack<t_vtype>
 				PrivIterator	&operator=(PrivIterator const &);
 		};
 
+	private :
+		std::stack<t_vtype>	memory;
+
+		void	swapToMem(void);
+		void	swapFromMem(void);
+
+	public :
 		MutantStack(void);
 		MutantStack(MutantStack<t_vtype> const &);
 		~MutantStack(void);

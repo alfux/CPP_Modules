@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:13:17 by alfux             #+#    #+#             */
-/*   Updated: 2022/11/16 00:17:32 by alfux            ###   ########.fr       */
+/*   Updated: 2022/11/16 00:26:26 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MUTANT_TPP
@@ -14,7 +14,9 @@
 
 template <typename t_vtype> char const
 	*MutantStack<t_vtype>::BadDereferencing::what(void) const throw ()
-	{return ("dereferencing out of range object");}
+{
+	return ("dereferencing out of range object");
+}
 
 template <typename t_vtype>
 	MutantStack<t_vtype>::PrivIterator::PrivIterator(void)
@@ -181,7 +183,9 @@ template <typename t_vtype>
 
 template <typename t_vtype> typename MutantStack<t_vtype>::PrivIterator
 	&MutantStack<t_vtype>::iterator::operator=(PrivIterator const &cpy)
-	{return (PrivIterator::operator=(cpy));}
+{
+	return (PrivIterator::operator=(cpy));
+}
 
 template <typename t_vtype>
 	MutantStack<t_vtype>::MutantStack(void) : memory() {}
