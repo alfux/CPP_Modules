@@ -51,3 +51,6 @@ Monday October 24th 03:00: adding CPP_Module01/ex00
 ### CPP_Module08
 <br />Sunday November 13th 03:34: adding CPP_Module08/ex00
 <br />Monday November 14th 04:37: adding CPP_Module08/ex01
+<br />Wednesday November 16th 06:54: adding CPP_Module08/ex02
+<br />Wednesday November 16th 06:54: finidhed CPP_Module08
+## CPP_Modules finished: let's get corrected

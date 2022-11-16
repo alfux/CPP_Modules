@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/14 19:09:22 by alfux             #+#    #+#             */
-/*   Updated: 2022/11/16 00:34:31 by alfux            ###   ########.fr       */
+/*   Updated: 2022/11/16 05:06:01 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MUTANTSTACK_HPP
@@ -29,7 +29,6 @@ template <typename t_vtype> class	MutantStack : public std::stack<t_vtype>
 			protected :
 				MutantStack<t_vtype>	*mutant;
 				size_t					position;
-				size_t					m_size;
 
 			public :
 				PrivIterator(void);
