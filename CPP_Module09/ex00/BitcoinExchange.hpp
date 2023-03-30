@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:32:49 by alfux             #+#    #+#             */
-/*   Updated: 2023/03/30 05:20:46 by alfux            ###   ########.fr       */
+/*   Updated: 2023/03/30 09:18:05 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 
 class	BitcoinExchange
 {
-	std::map<Date, double>	data;
+	typedef std::multimap<Date, double, std::less<Date> >	t_multimap;
+
+	t_multimap	data;
 
 	public:
 		BitcoinExchange(void);
@@ -31,12 +33,14 @@ class	BitcoinExchange
 		~BitcoinExchange(void);
 
 		BitcoinExchange	&operator=(BitcoinExchange const &cpy);
+		BitcoinExchange	&operator<<(std::string const &file_name);
 
 	private:
 		std::istream	&getLine(std::istream &is, std::string &str);
+		void			checkHeader(std::string const &file_name, std::string &line);
+		void			printMatch(std::string const &line);
 		Date			getDate(std::string date);
-		double			checkValue(double val);
-		bool			checkHeader(std::string &line);
+		double			checkValue(std::string value);
 };
 
 #endif

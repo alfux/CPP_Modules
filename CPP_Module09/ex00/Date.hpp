@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 03:47:32 by alfux             #+#    #+#             */
-/*   Updated: 2023/03/30 04:33:35 by alfux            ###   ########.fr       */
+/*   Updated: 2023/03/30 09:04:18 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,9 @@ class	Date
 		bool	operator>=(Date const &rhs) const;
 		bool	operator<(Date const &rhs) const;
 		bool	operator>(Date const &rhs) const;
+
+	private:
+		std::string	invalidDate(ssize_t year, ssize_t month, ssize_t day) const;
 };
 
 std::ostream	&operator<<(std::ostream &os, Date const &date);

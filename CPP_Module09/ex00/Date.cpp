@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 03:42:02 by alfux             #+#    #+#             */
-/*   Updated: 2023/03/30 04:40:50 by alfux            ###   ########.fr       */
+/*   Updated: 2023/03/30 09:07:56 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,33 +31,31 @@ Date::~Date(void) {}
 
 void	Date::checkDate(ssize_t year, ssize_t month, ssize_t day) const
 {
-	if (year < 0)
-		throw (Error("invalid year"));
-	if (month <= 0 || month > 12)
-		throw (Error("invalid month"));
+	if (year < 0 || month <= 0 || month > 12)
+		throw (Error(this->invalidDate(year, month, day)));
 	switch (day)
 	{
 		case 2:
 			if (day > 28 + !(year % 4) || day <= 0)
-				throw (Error("invalid day"));
+				throw (Error(this->invalidDate(year, month, day)));
 			break ;
 		case 4:
 		case 6:
 		case 9:
 		case 11:
 			if (day > 30 || day <= 0)
-				throw (Error("invalid day"));
+				throw (Error(this->invalidDate(year, month, day)));
 			break;
 		default:
 			if (day > 31 || day <= 0)
-				throw (Error("invalid day"));
+				throw (Error(this->invalidDate(year, month, day)));
 	}
 }
 
 void	Date::setYear(ssize_t year)
 {
 	if (year < 0)
-		throw (Error("invalid year"));
+		throw (Error("invalid year => " + std::to_string(year)));
 	if (this->month && this->day)
 		this->checkDate(year, this->month, this->day);
 	this->year = year;
@@ -66,7 +64,7 @@ void	Date::setYear(ssize_t year)
 void	Date::setMonth(ssize_t month)
 {
 	if (month <= 0 || month > 12)
-		throw (Error("invalid month"));
+		throw (Error("invalid month => " + std::to_string(month)));
 	if (this->day)
 		this->checkDate(this->year, month, this->day);
 	this->month = month;
@@ -75,7 +73,7 @@ void	Date::setMonth(ssize_t month)
 void	Date::setDay(ssize_t day)
 {
 	if (day <= 0 || day > 31)
-		throw (Error("invalid day"));
+		throw (Error("invalid day => " + std::to_string(day)));
 	if (this->month)
 		this->checkDate(this->year, this->month, day);
 	this->day = day;
@@ -176,6 +174,12 @@ bool	Date::operator>(Date const &rhs) const
 		return (this->month > rhs.month);
 	}
 	return (this->year > rhs.year);
+}
+
+std::string	Date::invalidDate(ssize_t year, ssize_t month, ssize_t day) const
+{
+	return ("invalid date => " + std::to_string(year) + "-"
+		+ std::to_string(month) + "-" + std::to_string(day));
 }
 
 std::ostream	&operator<<(std::ostream &os, Date const &date)
