@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:33:36 by alfux             #+#    #+#             */
-/*   Updated: 2023/03/30 05:50:53 by alfux            ###   ########.fr       */
+/*   Updated: 2023/03/30 05:51:52 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ bool	BitcoinExchange::checkHeader(std::string &line)
 	date = line.find("date");
 	sep = line.find("|");
 	value = line.find("value");
-	if (date == std::string::npos || sep == std::string::npos
+	if (date == std::string::npos || sep == std::string::npos
 		|| value == std::string::npos || !(date < sep && sep < value))
 		return (true);
 	line.erase(date, 4);
