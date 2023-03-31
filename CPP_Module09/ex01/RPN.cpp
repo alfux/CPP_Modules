@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 04:37:46 by alfux             #+#    #+#             */
-/*   Updated: 2023/03/31 06:30:36 by alfux            ###   ########.fr       */
+/*   Updated: 2023/03/31 06:54:24 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ void	RPN::solve(void)
 		{
 			this->stack.push(std::stod(this->rpn));
 			this->rpn.erase(0, this->rpn.find_first_not_of(DIGIT));
+		}
+		else if (this->rpn[0] == '-' && this->rpn.find_first_of(DIGIT) == 1)
+		{
+			this->stack.push(std::stod(this->rpn));
+			this->rpn.erase(0, this->rpn.find_first_not_of(DIGIT, 1));
 		}
 		else if (!this->rpn.find_first_of("+-*/"))
 			this->process();
