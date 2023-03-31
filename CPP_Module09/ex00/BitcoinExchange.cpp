@@ -6,7 +6,7 @@
 /*   By: alfux <alexis.t.fuchs@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/29 17:33:36 by alfux             #+#    #+#             */
-/*   Updated: 2023/03/30 09:25:11 by alfux            ###   ########.fr       */
+/*   Updated: 2023/03/31 04:15:20 by alfux            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,17 +161,16 @@ Date	BitcoinExchange::getDate(std::string date)
 
 double	BitcoinExchange::checkValue(std::string value)
 {
-	size_t	len;
 	double	val;
 
+	value.erase(0, value.find_first_not_of("\t\n\r\v\f "));
+	value.erase(value.find_last_not_of("\t\n\r\v\f ") + 1);
+	if (value.find_first_not_of("0123456789") != std::string::npos)
+		throw (Error("invalid syntax => " + value));
 	val = std::stod(value);
-	if (val > 2147483647)
+	if (val > 1000)
 		throw (Error("too large a number."));
 	else if (val < 0)
 		throw (Error("not a positive number."));
-	len = value.find_last_of("0123456789");
-	len = value.find_first_not_of("\t\n\r\v\f ", len + 1);
-	if (len != std::string::npos)
-		throw (Error("invalid syntax."));
 	return (val);
 }
